@@ -3,7 +3,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 
-    <title>lumbda API documentation</title>
+    <title>lumbda.collection API documentation</title>
     <meta name="description" content="" />
 
   <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300' rel='stylesheet' type='text/css'>
@@ -970,13 +970,20 @@ table {
     <h1>Index</h1>
     <ul id="index">
 
+    <li class="set"><h3><a href="#header-functions">Functions</a></h3>
+      
+  <ul>
+    <li class="mono"><a href="#lumbda.collection.chunk">chunk</a></li>
+    <li class="mono"><a href="#lumbda.collection.deepgetattr">deepgetattr</a></li>
+    <li class="mono"><a href="#lumbda.collection.dict_update">dict_update</a></li>
+    <li class="mono"><a href="#lumbda.collection.find_first">find_first</a></li>
+    <li class="mono"><a href="#lumbda.collection.to_uuid">to_uuid</a></li>
+    <li class="mono"><a href="#lumbda.collection.uuid_or_none">uuid_or_none</a></li>
+  </ul>
 
-
-    <li class="set"><h3><a href="#header-submodules">Sub-modules</a></h3>
-      <ul>
-        <li class="mono"><a href="collection.m.html">lumbda.collection</a></li>
-      </ul>
     </li>
+
+
     </ul>
   </div>
 
@@ -988,17 +995,120 @@ table {
 
 
   <header id="section-intro">
-  <h1 class="title"><span class="name">lumbda</span> module</h1>
+  <h1 class="title"><span class="name">lumbda.collection</span> module</h1>
   
   
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-lumbda', this);">Show source &equiv;</a></p>
-  <div id="source-lumbda" class="source">
-    <pre><code>from . import collection
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-lumbda.collection', this);">Show source &equiv;</a></p>
+  <div id="source-lumbda.collection" class="source">
+    <pre><code>import uuid
 
-__version__ = '0.1.1'
-__author__ = 'Florent Espanet'
-__author_email__ = 'florent@lumapps.com'
-__all__ = ['collection']
+
+def to_uuid(value):
+    """
+    Convert the value to uuid if it's not already a uuid
+
+    Args:
+        value (string): the value to convert
+
+    Returns:
+        the converted value
+
+    Raises:
+        TypeError: when the value cannot be converted to a uuid
+        ValueError: when the string is badly formed
+    """
+    if isinstance(value, uuid.UUID):
+        return value
+    return uuid.UUID(value)
+
+
+def uuid_or_none(value):
+    """
+    Convert the value to uuid or return None if it cannot be converted
+
+    Args:
+        value: the value to convert
+
+    Returns:
+        the converted value or None
+    """
+    try:
+        return to_uuid(value)
+    except TypeError:
+        return None
+
+
+def find_first(fn, iterable, kv_lambda=lambda it: enumerate(it)):
+    """
+    Find the first key, value of iterable for which fn(value) returns true
+    iterable may be any container which support iteration or an iterator
+
+    It is possible to pass a custom function that returns a (key, value)
+    iterator of iterable
+
+    Args:
+        fn: the function that will match the iterator element
+        iterable: the iterable
+        kv_lambda (optional): a lambda returning a (key, value) iterator of iterable
+
+    Returns:
+        a (key, value) tuple of the first matching element or None
+
+    """
+    for key, value in kv_lambda(iterable):
+        if fn(value):
+            return key, value
+
+
+def chunk(iterator, size=1):
+    """
+    Split a list in `n` items long chunks
+
+    Args:
+        iterator (iterable): the list to split
+        size (int): the size of the chunks
+
+    Returns:
+        generator, a generator yielding each chunk
+    """
+    for idx in range(0, len(iterator), size):
+        yield iterator[idx:idx + size]
+
+
+def dict_update(source, update):
+    """
+    Functional dict.update that will return the results instead of
+    updating the original dict.
+
+    Args:
+        source (dict): The dictionary to be updated
+        update (dict): The dictionary that updates source
+
+    Returns:
+        the merge of the two dicts
+    """
+    source_copy = source.copy()
+    source_copy.update(update)
+
+    return source_copy
+
+
+def deepgetattr(obj, attr, default=None):
+    """
+    Recurse through a deep attribute list and return the value or default
+
+    Args:
+        obj: the object
+        attr (string): the attributes separated by dots
+        default (optional): the default value
+
+    Returns:
+        the final value or default
+    """
+    try:
+        return reduce(getattr, attr.split('.'), obj)
+    except AttributeError:
+        return default
 </code></pre>
   </div>
 
@@ -1006,15 +1116,256 @@ __all__ = ['collection']
 
   <section id="section-items">
 
-
-
-    <h2 class="section-title" id="header-submodules">Sub-modules</h2>
-      <div class="item">
-      <p class="name"><a href="collection.m.html">lumbda.collection</a></p>
+    <h2 class="section-title" id="header-functions">Functions</h2>
       
+  <div class="item">
+    <div class="name def" id="lumbda.collection.chunk">
+    <p>def <span class="ident">chunk</span>(</p><p>iterator, size=1)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Split a list in <code>n</code> items long chunks</p>
+<p>Args:
+    iterator (iterable): the list to split
+    size (int): the size of the chunks</p>
+<p>Returns:
+    generator, a generator yielding each chunk</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-lumbda.collection.chunk', this);">Show source &equiv;</a></p>
+  <div id="source-lumbda.collection.chunk" class="source">
+    <pre><code>def chunk(iterator, size=1):
+    """
+    Split a list in `n` items long chunks
+
+    Args:
+        iterator (iterable): the list to split
+        size (int): the size of the chunks
+
+    Returns:
+        generator, a generator yielding each chunk
+    """
+    for idx in range(0, len(iterator), size):
+        yield iterator[idx:idx + size]
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+      
+  <div class="item">
+    <div class="name def" id="lumbda.collection.deepgetattr">
+    <p>def <span class="ident">deepgetattr</span>(</p><p>obj, attr, default=None)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Recurse through a deep attribute list and return the value or default</p>
+<p>Args:
+    obj: the object
+    attr (string): the attributes separated by dots
+    default (optional): the default value</p>
+<p>Returns:
+    the final value or default</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-lumbda.collection.deepgetattr', this);">Show source &equiv;</a></p>
+  <div id="source-lumbda.collection.deepgetattr" class="source">
+    <pre><code>def deepgetattr(obj, attr, default=None):
+    """
+    Recurse through a deep attribute list and return the value or default
+
+    Args:
+        obj: the object
+        attr (string): the attributes separated by dots
+        default (optional): the default value
+
+    Returns:
+        the final value or default
+    """
+    try:
+        return reduce(getattr, attr.split('.'), obj)
+    except AttributeError:
+        return default
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+      
+  <div class="item">
+    <div class="name def" id="lumbda.collection.dict_update">
+    <p>def <span class="ident">dict_update</span>(</p><p>source, update)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Functional dict.update that will return the results instead of
+updating the original dict.</p>
+<p>Args:
+    source (dict): The dictionary to be updated
+    update (dict): The dictionary that updates source</p>
+<p>Returns:
+    the merge of the two dicts</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-lumbda.collection.dict_update', this);">Show source &equiv;</a></p>
+  <div id="source-lumbda.collection.dict_update" class="source">
+    <pre><code>def dict_update(source, update):
+    """
+    Functional dict.update that will return the results instead of
+    updating the original dict.
+
+    Args:
+        source (dict): The dictionary to be updated
+        update (dict): The dictionary that updates source
+
+    Returns:
+        the merge of the two dicts
+    """
+    source_copy = source.copy()
+    source_copy.update(update)
+
+    return source_copy
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+      
+  <div class="item">
+    <div class="name def" id="lumbda.collection.find_first">
+    <p>def <span class="ident">find_first</span>(</p><p>fn, iterable, kv_lambda=&lt;function &lt;lambda&gt; at 0x7f91693558c0&gt;)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Find the first key, value of iterable for which fn(value) returns true
+iterable may be any container which support iteration or an iterator</p>
+<p>It is possible to pass a custom function that returns a (key, value)
+iterator of iterable</p>
+<p>Args:
+    fn: the function that will match the iterator element
+    iterable: the iterable
+    kv_lambda (optional): a lambda returning a (key, value) iterator of iterable</p>
+<p>Returns:
+    a (key, value) tuple of the first matching element or None</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-lumbda.collection.find_first', this);">Show source &equiv;</a></p>
+  <div id="source-lumbda.collection.find_first" class="source">
+    <pre><code>def find_first(fn, iterable, kv_lambda=lambda it: enumerate(it)):
+    """
+    Find the first key, value of iterable for which fn(value) returns true
+    iterable may be any container which support iteration or an iterator
+
+    It is possible to pass a custom function that returns a (key, value)
+    iterator of iterable
+
+    Args:
+        fn: the function that will match the iterator element
+        iterable: the iterable
+        kv_lambda (optional): a lambda returning a (key, value) iterator of iterable
+
+    Returns:
+        a (key, value) tuple of the first matching element or None
+
+    """
+    for key, value in kv_lambda(iterable):
+        if fn(value):
+            return key, value
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+      
+  <div class="item">
+    <div class="name def" id="lumbda.collection.to_uuid">
+    <p>def <span class="ident">to_uuid</span>(</p><p>value)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Convert the value to uuid if it's not already a uuid</p>
+<p>Args:
+    value (string): the value to convert</p>
+<p>Returns:
+    the converted value</p>
+<p>Raises:
+    TypeError: when the value cannot be converted to a uuid
+    ValueError: when the string is badly formed</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-lumbda.collection.to_uuid', this);">Show source &equiv;</a></p>
+  <div id="source-lumbda.collection.to_uuid" class="source">
+    <pre><code>def to_uuid(value):
+    """
+    Convert the value to uuid if it's not already a uuid
+
+    Args:
+        value (string): the value to convert
+
+    Returns:
+        the converted value
+
+    Raises:
+        TypeError: when the value cannot be converted to a uuid
+        ValueError: when the string is badly formed
+    """
+    if isinstance(value, uuid.UUID):
+        return value
+    return uuid.UUID(value)
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+      
+  <div class="item">
+    <div class="name def" id="lumbda.collection.uuid_or_none">
+    <p>def <span class="ident">uuid_or_none</span>(</p><p>value)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Convert the value to uuid or return None if it cannot be converted</p>
+<p>Args:
+    value: the value to convert</p>
+<p>Returns:
+    the converted value or None</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-lumbda.collection.uuid_or_none', this);">Show source &equiv;</a></p>
+  <div id="source-lumbda.collection.uuid_or_none" class="source">
+    <pre><code>def uuid_or_none(value):
+    """
+    Convert the value to uuid or return None if it cannot be converted
+
+    Args:
+        value: the value to convert
+
+    Returns:
+        the converted value or None
+    """
+    try:
+        return to_uuid(value)
+    except TypeError:
+        return None
+</code></pre>
+  </div>
+</div>
+
+  </div>
   
 
-      </div>
+
   </section>
 
     </article>
