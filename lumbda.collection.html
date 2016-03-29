@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module collection</title>
+<meta charset="utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>collection</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href="index.html">index</a><br><a href="lumbda/collection.py">lumbda/collection.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top>uuid<br>
+</td><td width="25%" valign=top></td><td width="25%" valign=top></td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-chunk"><strong>chunk</strong></a>(iterator, size<font color="#909090">=1</font>)</dt><dd><tt>Split&nbsp;a&nbsp;list&nbsp;in&nbsp;`n`&nbsp;items&nbsp;long&nbsp;chunks<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;iterator&nbsp;(iterable):&nbsp;the&nbsp;list&nbsp;to&nbsp;split<br>
+&nbsp;&nbsp;&nbsp;&nbsp;size&nbsp;(int):&nbsp;the&nbsp;size&nbsp;of&nbsp;the&nbsp;chunks<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;generator,&nbsp;a&nbsp;generator&nbsp;yielding&nbsp;each&nbsp;chunk</tt></dd></dl>
+ <dl><dt><a name="-deepgetattr"><strong>deepgetattr</strong></a>(obj, attr, default<font color="#909090">=None</font>)</dt><dd><tt>Recurse&nbsp;through&nbsp;a&nbsp;deep&nbsp;attribute&nbsp;list&nbsp;and&nbsp;return&nbsp;the&nbsp;value&nbsp;or&nbsp;default<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;obj:&nbsp;the&nbsp;object<br>
+&nbsp;&nbsp;&nbsp;&nbsp;attr&nbsp;(string):&nbsp;the&nbsp;attributes&nbsp;separated&nbsp;by&nbsp;dots<br>
+&nbsp;&nbsp;&nbsp;&nbsp;default&nbsp;(optional):&nbsp;the&nbsp;default&nbsp;value<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;final&nbsp;value&nbsp;or&nbsp;default</tt></dd></dl>
+ <dl><dt><a name="-dict_update"><strong>dict_update</strong></a>(source, update)</dt><dd><tt>Functional&nbsp;dict.update&nbsp;that&nbsp;will&nbsp;return&nbsp;the&nbsp;results&nbsp;instead&nbsp;of<br>
+updating&nbsp;the&nbsp;original&nbsp;dict.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;source&nbsp;(dict):&nbsp;The&nbsp;dictionary&nbsp;to&nbsp;be&nbsp;updated<br>
+&nbsp;&nbsp;&nbsp;&nbsp;update&nbsp;(dict):&nbsp;The&nbsp;dictionary&nbsp;that&nbsp;updates&nbsp;source<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;merge&nbsp;of&nbsp;the&nbsp;two&nbsp;dicts</tt></dd></dl>
+ <dl><dt><a name="-find_first"><strong>find_first</strong></a>(fn, iterable, kv_lambda<font color="#909090">=&lt;function &lt;lambda&gt;&gt;</font>)</dt><dd><tt>Find&nbsp;the&nbsp;first&nbsp;key,&nbsp;value&nbsp;of&nbsp;iterable&nbsp;for&nbsp;which&nbsp;fn(value)&nbsp;returns&nbsp;true<br>
+iterable&nbsp;may&nbsp;be&nbsp;any&nbsp;container&nbsp;which&nbsp;support&nbsp;iteration&nbsp;or&nbsp;an&nbsp;iterator<br>
+&nbsp;<br>
+It&nbsp;is&nbsp;possible&nbsp;to&nbsp;pass&nbsp;a&nbsp;custom&nbsp;function&nbsp;that&nbsp;returns&nbsp;a&nbsp;(key,&nbsp;value)<br>
+iterator&nbsp;of&nbsp;iterable<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;fn:&nbsp;the&nbsp;function&nbsp;that&nbsp;will&nbsp;match&nbsp;the&nbsp;iterator&nbsp;element<br>
+&nbsp;&nbsp;&nbsp;&nbsp;iterable:&nbsp;the&nbsp;iterable<br>
+&nbsp;&nbsp;&nbsp;&nbsp;kv_lambda&nbsp;(optional):&nbsp;a&nbsp;lambda&nbsp;returning&nbsp;a&nbsp;(key,&nbsp;value)&nbsp;iterator&nbsp;of&nbsp;iterable<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;(key,&nbsp;value)&nbsp;tuple&nbsp;of&nbsp;the&nbsp;first&nbsp;matching&nbsp;element&nbsp;or&nbsp;None</tt></dd></dl>
+ <dl><dt><a name="-to_uuid"><strong>to_uuid</strong></a>(value)</dt><dd><tt>Convert&nbsp;the&nbsp;value&nbsp;to&nbsp;uuid&nbsp;if&nbsp;it's&nbsp;not&nbsp;already&nbsp;a&nbsp;uuid<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;value&nbsp;(string):&nbsp;the&nbsp;value&nbsp;to&nbsp;convert<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;converted&nbsp;value<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;TypeError:&nbsp;when&nbsp;the&nbsp;value&nbsp;cannot&nbsp;be&nbsp;converted&nbsp;to&nbsp;a&nbsp;uuid<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ValueError:&nbsp;when&nbsp;the&nbsp;string&nbsp;is&nbsp;badly&nbsp;formed</tt></dd></dl>
+ <dl><dt><a name="-uuid_or_none"><strong>uuid_or_none</strong></a>(value)</dt><dd><tt>Convert&nbsp;the&nbsp;value&nbsp;to&nbsp;uuid&nbsp;or&nbsp;return&nbsp;None&nbsp;if&nbsp;it&nbsp;cannot&nbsp;be&nbsp;converted<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;value:&nbsp;the&nbsp;value&nbsp;to&nbsp;convert<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;converted&nbsp;value&nbsp;or&nbsp;None</tt></dd></dl>
+</td></tr></table>
+</body></html>
