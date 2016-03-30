@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/lumapps/lumbda.svg?branch=master)](https://travis-ci.org/lumapps/lumbda)
+
 # lumbda
 
 > The utility python package.
