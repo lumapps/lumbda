@@ -56,6 +56,7 @@ def find_first(fn, iterable, kv_lambda=lambda it: enumerate(it)):
     for key, value in kv_lambda(iterable):
         if fn(value):
             return key, value
+    return None, None
 
 
 def chunk(iterator, size=1):
