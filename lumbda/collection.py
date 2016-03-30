@@ -32,7 +32,7 @@ def uuid_or_none(value):
     """
     try:
         return to_uuid(value)
-    except TypeError:
+    except (TypeError, ValueError):
         return None
 
 
